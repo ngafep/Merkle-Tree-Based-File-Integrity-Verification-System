@@ -1,0 +1,15 @@
+version: '3'
+services:
+  server:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app  # Mount the current directory (where docker-compose.yml is) to /app in the container
+  client:
+    build: .
+    command: sh -c "sleep 10 && python client.py"
+    depends_on:
+      - server
+    volumes:
+      - .:/app  # Mount the current directory to /app in the client container as well
